@@ -16,8 +16,8 @@ function App() {
         </div>
       </div>
       <Home /> */}
-      {/* <SignUp /> */}
-      <SignIn />
+      <SignUp />
+      {/* <SignIn /> */}
     </>
   );
 }

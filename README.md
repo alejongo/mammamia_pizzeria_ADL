@@ -1,8 +1,15 @@
-# React + Vite
+# Mamma Mia Pizzeria
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Actualización del proyecto a Tailwind CSS
 
-Currently, two official plugins are available:
+El proyecto ha sido actualizado para usar Tailwind CSS y la libreria Tailwind UI components en reemplazo de ReactBoostrap
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Datos de LogIn exitoso
+
+**Usuario:** a@a.com
+
+**Pass:** 123456
+
+## Datos de registro
+
+Para realizar un registro exitoso, basta con llenar los datos en los formatos de cada campo.

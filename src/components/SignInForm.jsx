@@ -20,6 +20,8 @@ export const SignInForm = () => {
       toast.success("Autenticación exitosa");
     } else if (user.email === "" || user.password === "") {
       toast.error("Todos los campos son obligatorios");
+    } else if (user.password.length < 6) {
+      toast.error("La contraseña debe tener al menos 6 caracteres");
     } else {
       toast.error("Los datos ingresados son incorrectos");
     }

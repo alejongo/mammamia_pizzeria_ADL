@@ -5,6 +5,7 @@ import { NavbarMenu } from "./components/NavbarMenu";
 import { Header } from "./components/Header";
 import { SignIn } from "./views/SignIn";
 import { SignUp } from "./views/SignUp";
+import { Footer } from "./components/Footer";
 
 function App() {
   return (
@@ -14,8 +15,9 @@ function App() {
           <NavbarMenu />
           <Header />
         </div>
-      </div>
-      <Home /> */}
+      </div> */}
+      {/* <Home /> */}
+      {/* <Footer /> */}
       <SignUp />
       {/* <SignIn /> */}
     </>

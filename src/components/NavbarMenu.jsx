@@ -1,4 +1,5 @@
 import "../App.css";
+import { Cart } from "./cart/Cart";
 
 import {
   Disclosure,
@@ -9,7 +10,11 @@ import {
   MenuItem,
   MenuItems,
 } from "@headlessui/react";
-import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import {
+  Bars3Icon,
+  ShoppingCartIcon,
+  XMarkIcon,
+} from "@heroicons/react/24/outline";
 
 const user = {
   name: "Alejandro Gomez",
@@ -32,12 +37,15 @@ const userNavigation = [
   { name: "LogOut", href: "#" },
 ];
 import { thousandSeparator } from "../helpers/thousandSeparator";
+import { useEffect, useState } from "react";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 export const NavbarMenu = () => {
+  const [cartOpen, setCartOpen] = useState(false);
+
   const total = 250000;
   const token = true;
   return (
@@ -76,9 +84,14 @@ export const NavbarMenu = () => {
               </div>
               <div className="hidden md:block">
                 <div className="ml-4 flex items-center md:ml-6">
-                  <div className="text-lime-300 p-1 outline-1 rounded hover:bg-lime-300 hover:text-lime-800">
+                  <div
+                    className=" flex items-center gap-3 text-lime-300 p-1 outline-1 rounded hover:bg-lime-300 hover:text-lime-800"
+                    onClick={() => setCartOpen(!cartOpen)}
+                  >
+                    <ShoppingCartIcon className="size-5" />
                     <a href="#">{`$ ${thousandSeparator(total)}`}</a>
                   </div>
+                  <Cart openState={cartOpen} />
                   {!token ? (
                     /* User SigIn Navigation */
                     <div className="hidden md:block">

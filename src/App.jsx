@@ -10,15 +10,15 @@ import { Footer } from "./components/Footer";
 function App() {
   return (
     <>
-      {/* <div className="min-h-full">
+      <div className="min-h-full">
         <div className="header-banner text-header bg-gray-800 pb-32">
           <NavbarMenu />
           <Header />
         </div>
-      </div> */}
-      {/* <Home /> */}
+      </div>
+      <Home />
       {/* <Footer /> */}
-      <SignUp />
+      {/* <SignUp /> */}
       {/* <SignIn /> */}
     </>
   );

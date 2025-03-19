@@ -85,10 +85,10 @@ export const NavbarMenu = () => {
               <div className="hidden md:block">
                 <div className="ml-4 flex items-center md:ml-6">
                   <div
-                    className=" flex items-center gap-3 text-lime-300 p-1 outline-1 rounded hover:bg-lime-300 hover:text-lime-800"
+                    className=" flex items-center gap-3 text-lime-300 p-1 outline-1 rounded hover:bg-lime-300 hover:text-lime-800 hover:cursor-pointer"
                     onClick={() => setCartOpen(!cartOpen)}
                   >
-                    <ShoppingCartIcon className="size-5" />
+                    <ShoppingCartIcon className="size-5" /> |
                     <a href="#">{`$ ${thousandSeparator(total)}`}</a>
                   </div>
                   <Cart openState={cartOpen} />

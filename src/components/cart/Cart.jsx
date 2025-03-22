@@ -6,61 +6,19 @@ import {
   DialogTitle,
 } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import { pizzaCart } from "../../helpers/pizzas";
 import { thousandSeparator } from "../../helpers/thousandSeparator";
-import { MinusIcon, PlusIcon } from "@heroicons/react/16/solid";
 import { CartItem } from "./CartItem";
+import { useCartHook } from "../../hooks/useCartHook";
 
 export const Cart = ({ openState }) => {
   const [open, setOpen] = useState(true);
-  //TODO: Falta agregar la funcionalidad de agregar y eliminar productos del carrito
-  const [cart, setCart] = useState(pizzaCart);
+
+  const { cart, addItem, removeItem, deleteItem, calculateTotal } =
+    useCartHook();
 
   useEffect(() => {
     setOpen(!open);
   }, [openState]);
-
-  const addItem = (id) => {
-    setCart((prevState) => {
-      return prevState.map((product) => {
-        if (product.id === id) {
-          return {
-            ...product,
-            count: product.count + 1,
-          };
-        }
-        return product;
-      });
-    });
-  };
-
-  const removeItem = (id) => {
-    setCart((prevState) => {
-      return prevState
-        .map((product) => {
-          if (product.id === id) {
-            return {
-              ...product,
-              count: product.count - 1,
-            };
-          }
-          return product;
-        })
-        .filter((product) => product.count > 0);
-    });
-  };
-
-  const deleteItem = (id) => {
-    setCart((prevState) => {
-      return prevState.filter((product) => product.id !== id);
-    });
-  };
-
-  const calculateTotal = () => {
-    return cart.reduce((total, product) => {
-      return total + product.price * product.count;
-    }, 0);
-  };
 
   return (
     <Dialog open={open} onClose={setOpen} className="relative z-10">

@@ -21,20 +21,20 @@ const user = {
   email: "alejo@gmail.com",
   imageUrl: "./images/user-icon.png",
 };
-const navigation = [{ name: "Home", href: "#", current: true }];
+const navigation = [{ name: "Home", href: "/", current: true }];
 const signInNavigation = [
   {
     name: "Sign In",
-    href: "#",
+    href: "/signIn",
   },
   {
     name: "Register",
-    href: "#",
+    href: "/signUp",
   },
 ];
 const userNavigation = [
-  { name: "Profile", href: "#" },
-  { name: "LogOut", href: "#" },
+  { name: "Perfil del usuario", href: "/Perfil del usuario" },
+  { name: "Cerrar Sesión", href: "#" },
 ];
 import { thousandSeparator } from "../helpers/thousandSeparator";
 import { useEffect, useState } from "react";
@@ -114,7 +114,7 @@ export const NavbarMenu = () => {
                       </div>
                     </div>
                   ) : (
-                    /* Profile dropdown */
+                    /* Perfil del usuario dropdown */
                     <Menu as="div" className="relative ml-3">
                       <div>
                         <MenuButton className="relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:ring-2 hover:cursor-pointer hover:ring-2 hover:ring-lime-200 focus:ring-lime-300 focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden">

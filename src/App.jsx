@@ -1,27 +1,28 @@
 import "./App.css";
 //import { Footer } from "./components/Footer";
 import { Home } from "./views/Home";
-import { NavbarMenu } from "./components/NavbarMenu";
-import { Header } from "./components/Header";
+
 import { SignIn } from "./views/SignIn";
 import { SignUp } from "./views/SignUp";
-import { Footer } from "./components/Footer";
 import { Pizza } from "./views/Pizza";
+import { Route, Routes } from "react-router";
+import { MainLayout } from "./views/Layouts/MainLayout";
+import { NotFoundPage } from "./views/NotFoundPage";
+import { ProfileView } from "./views/ProfileView";
 
 function App() {
   return (
     <>
-      <div className="min-h-full">
-        <div className="header-banner text-header bg-gray-800 pb-32">
-          <NavbarMenu />
-          <Header />
-        </div>
-      </div>
-      <Home />
-      {/* <Footer /> */}
-      {/* <SignUp /> */}
-      {/* <SignIn /> */}
-      {/* <Pizza /> */}
+      <Routes>
+        <Route path="/signIn" element={<SignIn />} />
+        <Route path="/signUp" element={<SignUp />} />
+        <Route path="/" element={<MainLayout />}>
+          <Route index element={<Home />} />
+          <Route path="/pizza/:id" element={<Pizza />} />
+          <Route path="/userProfile" element={<ProfileView />} />
+        </Route>
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
     </>
   );
 }

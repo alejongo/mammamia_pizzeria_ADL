@@ -14,12 +14,12 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/signIn" element={<SignIn />} />
-        <Route path="/signUp" element={<SignUp />} />
+        <Route path="/login" element={<SignIn />} />
+        <Route path="/register" element={<SignUp />} />
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Home />} />
           <Route path="/pizza/:id" element={<Pizza />} />
-          <Route path="/userProfile" element={<ProfileView />} />
+          <Route path="/profile" element={<ProfileView />} />
         </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

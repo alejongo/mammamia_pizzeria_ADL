@@ -25,19 +25,19 @@ const navigation = [{ name: "Home", href: "/", current: true }];
 const signInNavigation = [
   {
     name: "Sign In",
-    href: "/signIn",
+    href: "/login",
   },
   {
     name: "Register",
-    href: "/signUp",
+    href: "/register",
   },
 ];
 const userNavigation = [
-  { name: "Perfil del usuario", href: "/Perfil del usuario" },
+  { name: "Perfil del usuario", href: "/profile" },
   { name: "Cerrar Sesión", href: "#" },
 ];
 import { thousandSeparator } from "../helpers/thousandSeparator";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -47,7 +47,7 @@ export const NavbarMenu = () => {
   const [cartOpen, setCartOpen] = useState(false);
 
   const total = 250000;
-  const token = true;
+  const token = false;
   return (
     <>
       <Disclosure as="nav" className="bg-gray-800">

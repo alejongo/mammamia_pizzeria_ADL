@@ -1,7 +1,18 @@
-import { PhotoIcon, UserCircleIcon } from "@heroicons/react/24/solid";
-import { ChevronDownIcon } from "@heroicons/react/16/solid";
+import { useProfileForm } from "../hooks/useProfileForm";
 
 export const ProfileView = () => {
+  const { nameInput, onHandleChange } = useProfileForm({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    address: "",
+    city: "",
+    state: "",
+    zipCode: "",
+    country: "",
+  });
+
   return (
     <div className="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8 ">
       <div className="rounded-lg -mt-32 bg-white px-5 py-6 shadow-sm sm:px-6">
@@ -26,9 +37,11 @@ export const ProfileView = () => {
                     <div className="mt-2">
                       <input
                         id="first-name"
-                        name="first-name"
+                        name="firstName"
                         type="text"
                         autoComplete="given-name"
+                        onChange={onHandleChange}
+                        value={nameInput.firstName}
                         className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-red-600 sm:text-sm/6"
                       />
                     </div>
@@ -44,9 +57,11 @@ export const ProfileView = () => {
                     <div className="mt-2">
                       <input
                         id="last-name"
-                        name="last-name"
+                        name="lastName"
                         type="text"
                         autoComplete="family-name"
+                        onChange={onHandleChange}
+                        value={nameInput.lastName}
                         className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-red-600 sm:text-sm/6"
                       />
                     </div>
@@ -65,6 +80,8 @@ export const ProfileView = () => {
                         name="email"
                         type="email"
                         autoComplete="email"
+                        onChange={onHandleChange}
+                        value={nameInput.email}
                         className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-red-600 sm:text-sm/6"
                       />
                     </div>
@@ -89,9 +106,11 @@ export const ProfileView = () => {
                     <div className="mt-2">
                       <input
                         id="street-address"
-                        name="street-address"
+                        name="address"
                         type="text"
                         autoComplete="street-address"
+                        onChange={onHandleChange}
+                        value={nameInput.address}
                         className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-red-600 sm:text-sm/6"
                       />
                     </div>
@@ -110,6 +129,8 @@ export const ProfileView = () => {
                         name="city"
                         type="text"
                         autoComplete="address-level2"
+                        onChange={onHandleChange}
+                        value={nameInput.city}
                         className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-red-600 sm:text-sm/6"
                       />
                     </div>
@@ -125,9 +146,11 @@ export const ProfileView = () => {
                     <div className="mt-2">
                       <input
                         id="region"
-                        name="region"
+                        name="state"
                         type="text"
                         autoComplete="address-level1"
+                        onChange={onHandleChange}
+                        value={nameInput.state}
                         className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-red-600 sm:text-sm/6"
                       />
                     </div>
@@ -143,9 +166,11 @@ export const ProfileView = () => {
                     <div className="mt-2">
                       <input
                         id="postal-code"
-                        name="postal-code"
+                        name="zipCode"
                         type="text"
                         autoComplete="postal-code"
+                        onChange={onHandleChange}
+                        value={nameInput.zipCode}
                         className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-red-600 sm:text-sm/6"
                       />
                     </div>

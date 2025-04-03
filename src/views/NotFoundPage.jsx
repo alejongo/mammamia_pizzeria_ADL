@@ -28,7 +28,7 @@ export const NotFoundPage = () => {
             >
               Volver a Mamma Mia Pizzeria
             </Link>
-            <Link to="/signIn" className="text-sm font-semibold text-gray-900">
+            <Link to="/login" className="text-sm font-semibold text-gray-900">
               Si tienes cuenta, inicia sesión{" "}
               <span aria-hidden="true">&rarr;</span>
             </Link>

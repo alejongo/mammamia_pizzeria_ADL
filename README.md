@@ -1,5 +1,8 @@
 # Mamma Mia Pizzeria
 
+> [!NOTE]
+> Para ver la información del usuario cambiar el TOKEN del estado del usuario en el componente NavBarMenu.jsx (true): Simula que el usuario está loggeado (false): Simula un usuario No loggeado
+
 ## Actualización del proyecto a Tailwind CSS
 
 El proyecto ha sido actualizado para usar Tailwind CSS y la libreria Tailwind UI components en reemplazo de ReactBoostrap

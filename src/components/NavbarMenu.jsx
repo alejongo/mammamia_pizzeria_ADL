@@ -38,6 +38,7 @@ const userNavigation = [
 ];
 import { thousandSeparator } from "../helpers/thousandSeparator";
 import { useState } from "react";
+import { useCartHook } from "../hooks/useCartHook";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -45,9 +46,11 @@ function classNames(...classes) {
 
 export const NavbarMenu = () => {
   const [cartOpen, setCartOpen] = useState(false);
+  // El hook userCartHook es el encargado de consumir el CartContext
+  const { calculateTotal } = useCartHook();
 
-  const total = 250000;
-  const token = false;
+  const total = calculateTotal();
+  const token = true;
   return (
     <>
       <Disclosure as="nav" className="bg-gray-800">

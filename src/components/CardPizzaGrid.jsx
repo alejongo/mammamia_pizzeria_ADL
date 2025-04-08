@@ -1,11 +1,10 @@
+import { PizzasContext } from "../contexts/PizzasContext";
 import { CardPizza } from "./CardPizza";
 //import { pizzas } from "../helpers/pizzas";
-import { useFetchPizza } from "../hooks/useFetchPizza";
+import { useContext } from "react";
 
 export const CardPizzaGrid = () => {
-  const { data, isLoading, hasError } = useFetchPizza(
-    "http://localhost:5000/api/pizzas"
-  );
+  const { isLoading, hasError, data } = useContext(PizzasContext);
 
   return (
     <>

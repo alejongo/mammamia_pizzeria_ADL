@@ -1,8 +1,10 @@
 import { thousandSeparator } from "../helpers/thousandSeparator";
 
 import PropTypes from "prop-types";
+import { useCartHook } from "../hooks/useCartHook";
 
 export const CardPizza = ({ id, name, price, ingredients, img, desc }) => {
+  const { addProductToCart } = useCartHook();
   return (
     <>
       <div className="overflow-hidden rounded-lg bg-white outline outline-gray-300 flex flex-col justify-between">
@@ -32,7 +34,10 @@ export const CardPizza = ({ id, name, price, ingredients, img, desc }) => {
           <button className="py-2 px-4 outline outline-red-700 rounded text-red-700 hover:cursor-pointer hover:bg-red-700 hover:text-white">
             Ver mas
           </button>
-          <button className="py-2 px-4  bg-red-700 rounded text-white hover:cursor-pointer hover:outline-2 hover:outline-red-600 hover:outline-offset-1">
+          <button
+            className="py-2 px-4  bg-red-700 rounded text-white hover:cursor-pointer hover:outline-2 hover:outline-red-600 hover:outline-offset-1"
+            onClick={() => addProductToCart(id)}
+          >
             Agregar
           </button>
         </div>
@@ -46,4 +51,6 @@ CardPizza.propTypes = {
   price: PropTypes.number,
   ingredients: PropTypes.array,
   img: PropTypes.string,
+  desc: PropTypes.string,
+  addToCart: PropTypes.func,
 };

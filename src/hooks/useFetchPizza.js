@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 export const useFetchPizza = (url) => {
-  const [pizzaState, setPizzaState] = useState({
+  const [pizzas, setPizzas] = useState({
     data: null,
     isLoading: true,
     hasError: false,
@@ -16,7 +16,7 @@ export const useFetchPizza = (url) => {
     const resp = await fetch(url);
     // Verificamos si el fetch falla y mostramos el mensaje
     if (!resp.ok) {
-      setPizzaState({
+      setPizzas({
         data: null,
         isLoading: false,
         hasError: true,
@@ -31,7 +31,7 @@ export const useFetchPizza = (url) => {
     // SI el fetch no falla, obtenemos los datos
     const data = await resp.json();
     // Agregamos los datos a nuevo estado
-    setPizzaState({
+    setPizzas({
       data: data,
       isLoading: false,
       hasError: false,
@@ -39,8 +39,8 @@ export const useFetchPizza = (url) => {
     });
   };
   return {
-    data: pizzaState.data,
-    isLoading: pizzaState.isLoading,
-    hasError: pizzaState.hasError,
+    data: pizzas.data,
+    isLoading: pizzas.isLoading,
+    hasError: pizzas.hasError,
   };
 };

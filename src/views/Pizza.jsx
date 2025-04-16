@@ -3,10 +3,13 @@ import { Tab, TabGroup, TabList } from "@headlessui/react";
 import { useFetchPizza } from "../hooks/useFetchPizza";
 import { thousandSeparator } from "../helpers/thousandSeparator";
 import { Breadcrumb } from "../components/Breadcrumb";
+import { useParams } from "react-router";
 
 export const Pizza = () => {
+  const { id } = useParams();
+
   const { data, isLoading, hasError } = useFetchPizza(
-    "http://localhost:5001/api/pizzas/p001"
+    `http://localhost:5001/api/pizzas/${id}`
   );
   console.log(data);
 
@@ -19,7 +22,7 @@ export const Pizza = () => {
       {data && (
         <div className="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8 ">
           <div className="rounded-lg -mt-32 bg-white px-5 py-6 shadow-sm sm:px-6">
-            <Breadcrumb />
+            <Breadcrumb pizza={pizza} />
             <div className=" mx-auto max-w-2xl px-4 py-4 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-32">
               <div className="lg:grid lg:grid-cols-2 lg:items-start lg:gap-x-4">
                 <TabGroup className="flex ">

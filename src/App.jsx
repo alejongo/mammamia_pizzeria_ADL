@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import "./App.css";
 //import { Footer } from "./components/Footer";
 import { Home } from "./views/Home";
@@ -5,12 +6,14 @@ import { Home } from "./views/Home";
 import { SignIn } from "./views/SignIn";
 import { SignUp } from "./views/SignUp";
 import { Pizza } from "./views/Pizza";
-import { Route, Routes } from "react-router";
+import { Route, Routes, Navigate } from "react-router";
 import { MainLayout } from "./views/Layouts/MainLayout";
 import { NotFoundPage } from "./views/NotFoundPage";
 import { ProfileView } from "./views/ProfileView";
+import { UserContext } from "./contexts/UserContext";
 
 function App() {
+  const { user } = useContext(UserContext);
   return (
     <>
       <Routes>
@@ -18,8 +21,11 @@ function App() {
         <Route path="/register" element={<SignUp />} />
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Home />} />
-          <Route path="/pizza/:id" element={<Pizza />} />
-          <Route path="/profile" element={<ProfileView />} />
+          <Route path="api/pizza/:id" element={<Pizza />} />
+          <Route
+            path="/profile"
+            element={user ? <ProfileView /> : <Navigate to="/login" />}
+          />
         </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   Dialog,
   DialogBackdrop,
@@ -9,8 +9,10 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import { thousandSeparator } from "../../helpers/thousandSeparator";
 import { CartItem } from "./CartItem";
 import { useCartHook } from "../../hooks/useCartHook";
+import { UserContext } from "../../contexts/UserContext";
 
 export const Cart = ({ openState }) => {
+  const { user } = useContext(UserContext);
   const [open, setOpen] = useState(true);
 
   const { cart, addItem, removeItem, deleteItem, calculateTotal } =
@@ -90,12 +92,13 @@ export const Cart = ({ openState }) => {
                   </div>
 
                   <div className="mt-6">
-                    <a
+                    <button
                       href="#"
-                      className="flex items-center justify-center rounded-md border border-transparent bg-red-600 px-6 py-3 text-base font-medium text-white shadow-xs hover:bg-red-700"
+                      className="flex w-full items-center justify-center rounded-md border border-transparent bg-red-600 px-6 py-3 text-base font-medium text-white shadow-xs hover:bg-red-700 disabled:bg-gray-300"
+                      disabled={!user}
                     >
                       Pagar ahora
-                    </a>
+                    </button>
                   </div>
                   <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
                     <p>

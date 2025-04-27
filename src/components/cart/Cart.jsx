@@ -10,12 +10,14 @@ import { thousandSeparator } from "../../helpers/thousandSeparator";
 import { CartItem } from "./CartItem";
 import { useCartHook } from "../../hooks/useCartHook";
 import { UserContext } from "../../contexts/UserContext";
+import { toast, Toaster } from "sonner";
 
 export const Cart = ({ openState }) => {
-  const { user } = useContext(UserContext);
+  const { userData: user } = useContext(UserContext);
+  console.log("este es el user", user);
   const [open, setOpen] = useState(true);
 
-  const { cart, addItem, removeItem, deleteItem, calculateTotal } =
+  const { cart, addItem, removeItem, deleteItem, calculateTotal, checkout } =
     useCartHook();
 
   useEffect(() => {
@@ -96,6 +98,7 @@ export const Cart = ({ openState }) => {
                       href="#"
                       className="flex w-full items-center justify-center rounded-md border border-transparent bg-red-600 px-6 py-3 text-base font-medium text-white shadow-xs hover:bg-red-700 disabled:bg-gray-300"
                       disabled={!user}
+                      onClick={checkout}
                     >
                       Pagar ahora
                     </button>
@@ -119,6 +122,7 @@ export const Cart = ({ openState }) => {
           </div>
         </div>
       </div>
+      <Toaster richColors position="top-right" closeButton />
     </Dialog>
   );
 };

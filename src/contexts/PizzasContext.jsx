@@ -1,11 +1,12 @@
 import { createContext, useState } from "react";
 import { useFetchPizza } from "../hooks/useFetchPizza";
+import { localhost } from "../helpers/fetchingUrl";
 
 export const PizzasContext = createContext();
 
 export const PizzasProvider = ({ children }) => {
   const { data, isLoading, hasError, error } = useFetchPizza(
-    "http://localhost:5000/api/pizzas"
+    `${localhost}/api/pizzas`
   );
 
   return (

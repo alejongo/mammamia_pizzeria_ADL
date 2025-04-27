@@ -1,13 +1,18 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { toast, Toaster } from "sonner";
+import { UserContext } from "../contexts/UserContext";
+import { useNavigate } from "react-router";
 
 export const SignUpForm = () => {
+  const navigate = useNavigate();
   const [user, setUser] = useState({
     name: "",
     email: "",
     password: "",
     confirmPassword: "",
   });
+  const { register } = useContext(UserContext);
+  const { setUserData } = useContext(UserContext);
 
   const onHandleChange = (e) => {
     setUser({
@@ -16,7 +21,7 @@ export const SignUpForm = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (
       user.name === "" ||
@@ -25,9 +30,23 @@ export const SignUpForm = () => {
       user.confirmPassword === ""
     )
       return toast.error("Todos los campos son obligatorios");
-    toast.success("Felicidades", {
-      description: `${user.name} se ha creado correctamente`,
-    });
+
+    try {
+      const response = await register(user.email, user.password);
+      //console.log("Este es el response", response);
+      if (response) {
+        setUserData(response);
+        localStorage.setItem("token", response.token);
+        toast.success("Usuario creado con éxito");
+        setTimeout(() => {
+          navigate("/");
+        }, 1000);
+      } else {
+        toast.error("Error al crear el usuario");
+      }
+    } catch (error) {
+      toast.error("Error en el registro: " + error.message);
+    }
 
     setUser({
       name: "",
@@ -37,7 +56,7 @@ export const SignUpForm = () => {
     });
   };
 
-  console.log(`Se creó el usuario: ${user.name}`, user);
+  //console.log(`Se creó el usuario: ${user.name}`, user);
 
   return (
     <>

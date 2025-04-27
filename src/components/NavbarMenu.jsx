@@ -1,7 +1,8 @@
 import "../App.css";
 import { Cart } from "./cart/Cart";
-import { NavLink } from "react-router";
+
 import { UserContext } from "../contexts/UserContext";
+import { NavLink, useNavigate } from "react-router-dom";
 
 import {
   Disclosure,
@@ -12,18 +13,21 @@ import {
   MenuItem,
   MenuItems,
 } from "@headlessui/react";
+import { thousandSeparator } from "../helpers/thousandSeparator";
+import { useContext, useState } from "react";
+import { useCartHook } from "../hooks/useCartHook";
 import {
   Bars3Icon,
   ShoppingCartIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 
-const userData = {
+const userInfo = {
   name: "Alejandro Gomez",
   email: "alejo@gmail.com",
   imageUrl: "./images/user-icon.png",
 };
-const navigation = [{ name: "Home", href: "/", current: true }];
+
 const signInNavigation = [
   {
     name: "Sign In",
@@ -34,26 +38,20 @@ const signInNavigation = [
     href: "/register",
   },
 ];
-import { thousandSeparator } from "../helpers/thousandSeparator";
-import { useContext, useState } from "react";
-import { useCartHook } from "../hooks/useCartHook";
 
 export const NavbarMenu = () => {
-  const userNavigation = [
-    { name: "Perfil del usuario", href: "/profile", action: null },
-    { name: "Cerrar Sesión", href: "#", action: () => handleLogOut() },
-  ];
+  const navigate = useNavigate();
+  const navigation = [{ name: "Home", href: "/" }];
+
   const [cartOpen, setCartOpen] = useState(false);
   // El hook userCartHook es el encargado de consumir el CartContext
   const { calculateTotal } = useCartHook();
 
   const total = calculateTotal();
-  const { user, setUser } = useContext(UserContext);
+  const { userData, handleLogOut } = useContext(UserContext);
 
-  const handleLogOut = () => {
-    console.log("Sesion cerrada");
-    setUser(false);
-  };
+  const activeSession = localStorage.getItem("token");
+
   return (
     <>
       <Disclosure as="nav" className="bg-gray-800">
@@ -73,7 +71,6 @@ export const NavbarMenu = () => {
                     {navigation.map((item) => (
                       <NavLink
                         key={item.name}
-                        href={item.href}
                         to={item.href}
                         className={({ isActive }) =>
                           isActive
@@ -97,7 +94,7 @@ export const NavbarMenu = () => {
                     <a href="#">{`$ ${thousandSeparator(total)}`}</a>
                   </div>
                   <Cart openState={cartOpen} />
-                  {!user ? (
+                  {!activeSession ? (
                     /* User SigIn Navigation */
                     <div className="hidden md:block">
                       <div className="ml-10 flex items-baseline space-x-4">
@@ -120,12 +117,12 @@ export const NavbarMenu = () => {
                     /* Perfil del usuario dropdown */
                     <Menu as="div" className="relative ml-3">
                       <div>
-                        <MenuButton className="relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:ring-2hover:cursor-pointer hover:ring-2 hover:ring-lime-200 focus:ring-lime-300 focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden">
+                        <MenuButton className="relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:ring-2 hover:cursor-pointer hover:ring-2 hover:ring-lime-200 focus:ring-lime-300 focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden">
                           <span className="absolute -inset-1.5" />
                           <span className="sr-only">Open user menu</span>
                           <img
                             alt=""
-                            src={userData.imageUrl}
+                            src="./images/user-icon.png"
                             className="size-8 rounded-full"
                           />
                         </MenuButton>
@@ -134,17 +131,23 @@ export const NavbarMenu = () => {
                         transition
                         className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 ring-1 shadow-lg ring-black/5 transition focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
                       >
-                        {userNavigation.map((item) => (
-                          <MenuItem key={item.name}>
-                            <a
-                              href={item.href}
-                              className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
-                              onClick={item.action}
-                            >
-                              {item.name}
-                            </a>
-                          </MenuItem>
-                        ))}
+                        <MenuItem>
+                          <a
+                            className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
+                            onClick={() => navigate("/profile")}
+                          >
+                            Perfil del usuario
+                          </a>
+                        </MenuItem>
+                        <MenuItem>
+                          <a
+                            href="#"
+                            className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
+                            onClick={handleLogOut}
+                          >
+                            Cerrar Sesion
+                          </a>
+                        </MenuItem>
                       </MenuItems>
                     </Menu>
                   )}
@@ -188,7 +191,7 @@ export const NavbarMenu = () => {
             ))}
           </div>
 
-          {!user ? (
+          {!activeSession ? (
             <div className="block md:hidden">
               <div className="ml-2 mb-2 flex items-baseline space-x-4">
                 {signInNavigation.map((item) => (
@@ -212,33 +215,35 @@ export const NavbarMenu = () => {
                 <div className="shrink-0">
                   <img
                     alt=""
-                    src={user.imageUrl}
+                    src={userInfo.imageUrl}
                     className="size-10 rounded-full"
                   />
                 </div>
                 <div className="ml-3">
                   <div className="text-base/5 font-medium text-white">
-                    {userData.name}
+                    {userInfo.name}
                   </div>
                   <div className="text-sm font-medium text-gray-400">
-                    {userData.email}
+                    {userInfo.email}
                   </div>
                 </div>
               </div>
               <div className="mt-3 space-y-1 px-2">
-                {userNavigation.map((item) => (
-                  <DisclosureButton
-                    key={item.name}
-                    as="a"
-                    href={item.href}
-                    className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
-                    onClick={
-                      item.action === "Cerrar Sesión" ? handleLogOut : null
-                    }
-                  >
-                    {item.name}
-                  </DisclosureButton>
-                ))}
+                <DisclosureButton
+                  as="a"
+                  className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
+                  onClick={() => navigate("/profile")}
+                >
+                  Perfil del usuario
+                </DisclosureButton>
+                <DisclosureButton
+                  as="a"
+                  href="#"
+                  className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
+                  onClick={handleLogOut}
+                >
+                  Cerrar Sesión
+                </DisclosureButton>
               </div>
             </div>
           )}

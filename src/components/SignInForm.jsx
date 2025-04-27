@@ -1,11 +1,17 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { toast, Toaster } from "sonner";
+import { UserContext } from "../contexts/UserContext";
+//import { useLogin } from "../hooks/useLogin";
+import { useNavigate } from "react-router";
 
 export const SignInForm = () => {
+  const navigate = useNavigate();
   const [user, setUser] = useState({
     email: "",
     password: "",
   });
+
+  const { userData, setUserData, login } = useContext(UserContext);
 
   const onHandleChange = (e) => {
     setUser({
@@ -14,19 +20,44 @@ export const SignInForm = () => {
     });
   };
 
-  const onHandleSubmit = (e) => {
+  const onHandleSubmit = async (e) => {
     e.preventDefault();
-    if ((user.email === "a@a.com") & (user.password === "123456")) {
-      toast.success("Autenticación exitosa");
-    } else if (user.email === "" || user.password === "") {
+    if (user.email === "" || user.password === "") {
       toast.error("Todos los campos son obligatorios");
-    } else if (user.password.length < 6) {
-      toast.error("La contraseña debe tener al menos 6 caracteres");
-    } else {
-      toast.error("Los datos ingresados son incorrectos");
+      return;
     }
 
-    console.log(user);
+    if (user.password.length < 6) {
+      toast.error("La contraseña debe tener al menos 6 caracteres");
+      return;
+    }
+    try {
+      const response = await login(user.email, user.password);
+      if (response) {
+        setUserData(response);
+        localStorage.setItem("token", response.token);
+        toast.success("Autenticación exitosa");
+        setTimeout(() => {
+          navigate("/");
+        }, 1000);
+      } else {
+        toast.error("Los datos ingresados son incorrectos");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+
+    // if ((user.email != "") & (user.password != "")) {
+    //   toast.success("Autenticación exitosa");
+    // } else if (user.email === "" || user.password === "") {
+    //   toast.error("Todos los campos son obligatorios");
+    // } else if (user.password.length < 6) {
+    //   toast.error("La contraseña debe tener al menos 6 caracteres");
+    // } else {
+    //   toast.error("Los datos ingresados son incorrectos");
+    // }
+
+    console.log(userData);
   };
 
   return (

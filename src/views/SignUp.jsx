@@ -1,5 +1,7 @@
+import { useContext } from "react";
 import { SignUpForm } from "../components/SignUpForm";
-import { Test } from "../components/Test";
+import { UserContext } from "../contexts/UserContext";
+import { useRegister } from "../hooks/useRegister";
 
 export const SignUp = () => {
   return (

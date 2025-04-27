@@ -13,7 +13,7 @@ import { ProfileView } from "./views/ProfileView";
 import { UserContext } from "./contexts/UserContext";
 
 function App() {
-  const { user } = useContext(UserContext);
+  //const { userData } = useContext(UserContext);
   return (
     <>
       <Routes>
@@ -22,10 +22,7 @@ function App() {
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Home />} />
           <Route path="api/pizza/:id" element={<Pizza />} />
-          <Route
-            path="/profile"
-            element={user ? <ProfileView /> : <Navigate to="/login" />}
-          />
+          <Route path="/profile" element={<ProfileView />} />
         </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
